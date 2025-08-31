@@ -12,7 +12,7 @@ import {
 import { app } from "@/lib/firebase"
 import { useRouter, usePathname } from "next/navigation"
 import { Loader2, Pill } from "lucide-react"
-import { Sidebar, SidebarContent, SidebarHeader, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
+import { SidebarProvider, Sidebar, SidebarHeader, SidebarContent, SidebarTrigger } from "@/components/ui/sidebar"
 import Link from "next/link"
 import { SidebarNav } from "@/components/sidebar-nav"
 import { UserNav } from "@/components/user-nav"
@@ -49,8 +49,8 @@ function AuthLayout({ children }: { children: ReactNode }) {
 function AppLayout({ children }: { children: ReactNode }) {
   return (
     <SidebarProvider>
-      <div className="grid h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
-        <Sidebar className="hidden border-r bg-card text-card-foreground md:block">
+      <div className="grid h-screen w-full lg:grid-cols-[280px_1fr]">
+        <Sidebar className="hidden border-r bg-card text-card-foreground lg:block">
           <SidebarHeader className="flex h-16 items-center px-6">
             <Link href="/" className="flex items-center gap-2 font-semibold text-primary">
               <Pill className="h-6 w-6" />
@@ -63,7 +63,7 @@ function AppLayout({ children }: { children: ReactNode }) {
         </Sidebar>
         <div className="flex flex-col">
           <header className="flex h-16 items-center gap-4 border-b bg-card/75 px-4 lg:px-6 sticky top-0 z-30 backdrop-blur-xl">
-            <SidebarTrigger className="shrink-0 md:hidden" />
+            <SidebarTrigger className="shrink-0 lg:hidden" />
             <div className="w-full flex-1">
               {/* Header content can go here, like a global search */}
             </div>
@@ -79,7 +79,6 @@ function AppLayout({ children }: { children: ReactNode }) {
     </SidebarProvider>
   )
 }
-
 
 export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User | null>(null)
