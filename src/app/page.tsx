@@ -7,7 +7,7 @@ import { Activity, ArrowUpRight, MoreHorizontal, Package, PackageCheck, Truck } 
 
 export default function Dashboard() {
   return (
-    <div className="flex flex-1 flex-col gap-4">
+    <>
       <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -212,6 +212,6 @@ export default function Dashboard() {
           </Table>
         </CardContent>
       </Card>
-    </div>
+    </>
   )
 }

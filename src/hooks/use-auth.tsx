@@ -49,7 +49,7 @@ function AuthLayout({ children }: { children: ReactNode }) {
 function AppLayout({ children }: { children: ReactNode }) {
   return (
     <SidebarProvider>
-      <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
+      <div className="grid h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
         <Sidebar className="hidden border-r bg-card text-card-foreground md:block">
           <SidebarHeader className="flex h-16 items-center px-6">
             <Link href="/" className="flex items-center gap-2 font-semibold text-primary">
@@ -69,8 +69,10 @@ function AppLayout({ children }: { children: ReactNode }) {
             </div>
             <UserNav />
           </header>
-          <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
-            {children}
+          <main className="flex-1 overflow-auto p-4 lg:p-6">
+            <div className="flex flex-col gap-4">
+              {children}
+            </div>
           </main>
         </div>
       </div>
