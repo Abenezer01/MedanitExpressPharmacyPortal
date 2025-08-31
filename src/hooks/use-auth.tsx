@@ -11,7 +11,11 @@ import {
 } from "firebase/auth"
 import { app } from "@/lib/firebase"
 import { useRouter, usePathname } from "next/navigation"
-import { Loader2 } from "lucide-react"
+import { Loader2, Pill } from "lucide-react"
+import { Sidebar, SidebarContent, SidebarHeader, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
+import Link from "next/link"
+import { SidebarNav } from "@/components/sidebar-nav"
+import { UserNav } from "@/components/user-nav"
 
 // Define the shape of the context state
 interface AuthContextType {
@@ -33,6 +37,47 @@ interface AuthProviderProps {
 
 const PROTECTED_ROUTES = ["/", "/orders", "/inventory", "/deliveries", "/customers", "/reports", "/settings", "/profile"]
 const PUBLIC_ROUTES = ["/login", "/signup"]
+
+function AuthLayout({ children }: { children: ReactNode }) {
+  return (
+    <div className="flex items-center justify-center min-h-screen">
+      {children}
+    </div>
+  )
+}
+
+function AppLayout({ children }: { children: ReactNode }) {
+  return (
+    <SidebarProvider>
+      <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
+        <Sidebar className="hidden border-r bg-card text-card-foreground md:block">
+          <SidebarHeader className="flex h-16 items-center px-6">
+            <Link href="/" className="flex items-center gap-2 font-semibold text-primary">
+              <Pill className="h-6 w-6" />
+              <span className="">Apotheca Central</span>
+            </Link>
+          </SidebarHeader>
+          <SidebarContent className="py-4">
+            <SidebarNav />
+          </SidebarContent>
+        </Sidebar>
+        <div className="flex flex-col">
+          <header className="flex h-16 items-center gap-4 border-b bg-card px-4 lg:px-6 sticky top-0 z-30">
+            <SidebarTrigger className="shrink-0 md:hidden" />
+            <div className="w-full flex-1">
+              {/* Header content can go here, like a global search */}
+            </div>
+            <UserNav />
+          </header>
+          <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
+            {children}
+          </main>
+        </div>
+      </div>
+    </SidebarProvider>
+  )
+}
+
 
 export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User | null>(null)
@@ -67,7 +112,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
     })
 
     return () => unsubscribe()
-  }, [auth, pathname, router])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [auth, pathname])
 
 
   const signIn = (email: string, pass: string) => {
@@ -100,22 +146,17 @@ export function AuthProvider({ children }: AuthProviderProps) {
     )
   }
 
-  // For public pages, don't block rendering
-  if (PUBLIC_ROUTES.includes(pathname)) {
-     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
-  }
+  const isPublicPage = PUBLIC_ROUTES.includes(pathname)
 
-  // If user is not logged in and trying to access a protected route, don't render children
-  if (!user && PROTECTED_ROUTES.includes(pathname)) {
-      return (
-        <div className="flex items-center justify-center h-screen w-screen">
-            <Loader2 className="h-12 w-12 animate-spin text-primary" />
-        </div>
-    );
-  }
-
-
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
+  return (
+    <AuthContext.Provider value={value}>
+      {isPublicPage ? (
+        <AuthLayout>{children}</AuthLayout>
+      ) : (
+        <AppLayout>{children}</AppLayout>
+      )}
+    </AuthContext.Provider>
+  )
 }
 
 // Custom hook to use the auth context

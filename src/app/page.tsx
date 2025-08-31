@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Activity, ArrowUpRight, CircleUser, MoreHorizontal, Package, PackageCheck, Truck } from "lucide-react";
+import { Activity, ArrowUpRight, MoreHorizontal, Package, PackageCheck, Truck } from "lucide-react";
 
 export default function Dashboard() {
   return (
