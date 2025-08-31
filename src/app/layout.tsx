@@ -1,11 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
-import { SidebarProvider, Sidebar, SidebarHeader, SidebarContent, SidebarTrigger } from '@/components/ui/sidebar';
-import { SidebarNav } from '@/components/sidebar-nav';
-import { Pill } from 'lucide-react';
-import Link from 'next/link';
-import { UserNav } from '@/components/user-nav';
 import { AuthProvider } from '@/hooks/use-auth';
 
 export const metadata: Metadata = {
