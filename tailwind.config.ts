@@ -95,5 +95,14 @@ export default {
       },
     },
   },
-  plugins: [require('tailwindcss-animate')],
+  plugins: [
+    require('tailwindcss-animate'),
+    function ({ addBase }) {
+      addBase({
+        'body': {
+          '@apply font-body antialiased': {},
+        },
+      });
+    },
+  ],
 } satisfies Config;
