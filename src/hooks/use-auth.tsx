@@ -40,7 +40,7 @@ const PUBLIC_ROUTES = ["/login", "/signup"]
 
 function AuthLayout({ children }: { children: ReactNode }) {
   return (
-    <div className="flex items-center justify-center min-h-screen">
+    <div className="flex items-center justify-center min-h-screen bg-background">
       {children}
     </div>
   )
@@ -62,14 +62,14 @@ function AppLayout({ children }: { children: ReactNode }) {
           </SidebarContent>
         </Sidebar>
         <div className="flex flex-col">
-          <header className="flex h-16 items-center gap-4 border-b bg-card px-4 lg:px-6 sticky top-0 z-30">
+          <header className="flex h-16 items-center gap-4 border-b bg-card/75 px-4 lg:px-6 sticky top-0 z-30 backdrop-blur-xl">
             <SidebarTrigger className="shrink-0 md:hidden" />
             <div className="w-full flex-1">
               {/* Header content can go here, like a global search */}
             </div>
             <UserNav />
           </header>
-          <main className="flex flex-1 flex-col p-4 lg:p-6">
+          <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
             {children}
           </main>
         </div>
